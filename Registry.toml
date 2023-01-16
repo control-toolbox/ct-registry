@@ -4,4 +4,5 @@ repo = "https://github.com/control-toolbox/ct-registry"
 description = "ct: control toolbox registry"
 
 [packages]
+22f08de8-270f-4470-8fba-397dbc90d8e0 = { name = "CommonSolveOptimisation", path = "C/CommonSolveOptimisation" }
 3a0bcf43-9180-47f3-913c-e71e0d69f39f = { name = "ControlToolboxTools", path = "C/ControlToolboxTools" }
