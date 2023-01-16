@@ -1,0 +1,6 @@
+name = "ct-registry"
+uuid = "cbe350a3-3b6e-4d25-82e7-2ace49268c64"
+repo = "https://github.com/control-toolbox/ct-registry"
+description = "ct: control toolbox registry"
+
+[packages]
