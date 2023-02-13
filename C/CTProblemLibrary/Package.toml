@@ -1,0 +1,3 @@
+name = "CTProblemLibrary"
+uuid = "0649932a-8c77-4f67-b1e4-c19ddd080280"
+repo = "https://github.com/control-toolbox/CTProblemLibrary.jl.git"
