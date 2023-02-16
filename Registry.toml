@@ -7,6 +7,5 @@ description = "ct: control toolbox registry"
 0649932a-8c77-4f67-b1e4-c19ddd080280 = { name = "CTProblemLibrary", path = "C/CTProblemLibrary" }
 22f08de8-270f-4470-8fba-397dbc90d8e0 = { name = "CTOptimization", path = "C/CTOptimization" }
 3a0bcf43-9180-47f3-913c-e71e0d69f39f = { name = "ControlToolboxTools", path = "C/ControlToolboxTools" }
-54762871-cc72-4466-b8e8-f6c8b58076cd = { name = "CTBase", path = "C/CTBase" }
 5f98b655-cc9a-415a-b60e-744165666948 = { name = "OptimalControl", path = "O/OptimalControl" }
 5fb78580-10a0-4606-82bc-07a60f425ab3 = { name = "HamiltonianFlows", path = "H/HamiltonianFlows" }
