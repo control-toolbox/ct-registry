@@ -1,7 +1,7 @@
 [0]
 DifferentialEquations = "0c46a032-eb83-5123-abaf-570d42b7fbaa"
 
-[0-1]
+["0-1.0.1"]
 ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
 StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
 
