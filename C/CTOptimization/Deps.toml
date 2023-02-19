@@ -1,10 +1,12 @@
 [0]
-ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 
 ["0-0.1.0"]
 ControlToolboxTools = "3a0bcf43-9180-47f3-913c-e71e0d69f39f"
+
+["0-0.1.1"]
+ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
 
 ["0.1.1-0"]
 CTBase = "54762871-cc72-4466-b8e8-f6c8b58076cd"
