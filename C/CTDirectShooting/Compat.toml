@@ -1,0 +1,8 @@
+["0.1.2-0"]
+CTBase = "0.2"
+CTOptimization = "0.1"
+HamiltonianFlows = "1"
+LinearAlgebra = "1.8.0-1"
+Plots = "1.38.0-1"
+Printf = "1.8.0-1"
+julia = "1.8.0-1"
