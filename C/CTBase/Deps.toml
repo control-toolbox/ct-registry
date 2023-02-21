@@ -6,3 +6,6 @@ Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 
 ["0-0.1"]
 ControlToolboxTools = "3a0bcf43-9180-47f3-913c-e71e0d69f39f"
+
+["0.3-0"]
+MacroTools = "1914dd2f-81c6-5fcd-8719-6d5c9610ff09"
