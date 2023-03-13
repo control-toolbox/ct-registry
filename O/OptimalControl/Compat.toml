@@ -4,11 +4,13 @@ julia = "1.8.0-1"
 ["0.2.2-0"]
 CTDirect = "0.1"
 CTDirectShooting = "0.1"
-HamiltonianFlows = "1"
 Reexport = "1.2.0-1"
 
 ["0.2.2-0.2"]
 CTBase = "0.2"
+
+["0.2.2-0.3"]
+HamiltonianFlows = "1"
 
 ["0.3-0"]
 CTBase = "0.4"
