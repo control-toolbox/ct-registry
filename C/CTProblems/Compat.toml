@@ -7,3 +7,6 @@ Plots = "1.38.0-1"
 
 ["0.1.2-0"]
 CTBase = "0.5"
+
+["0.1.4-0"]
+DocStringExtensions = "0.9"
