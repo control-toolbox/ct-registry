@@ -23,3 +23,6 @@ CTDirectShooting = "e0e6c04b-5022-4cd2-bea2-4a09fff39444"
 
 ["0.4-0"]
 CTFlows = "1c39547c-7794-42f7-af83-d98194f657c2"
+
+["0.5-0"]
+DocStringExtensions = "ffbed154-4ef7-542d-bbb7-c09d3a79fcae"
