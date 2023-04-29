@@ -10,3 +10,8 @@ DocStringExtensions = "ffbed154-4ef7-542d-bbb7-c09d3a79fcae"
 ["0.2-0"]
 CTFlows = "1c39547c-7794-42f7-af83-d98194f657c2"
 MINPACK = "4854310b-de5a-5eb6-a2a5-c1dee2bd17f9"
+
+["0.5-0"]
+ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+OrdinaryDiffEq = "1dea7af3-3e70-54e6-95c3-0bf5283fa5ed"
