@@ -16,3 +16,9 @@ MLStyle = "0.4"
 DocStringExtensions = "0.9"
 Plots = "1.38.0-1"
 Reexport = "1.2.0-1"
+
+["0.7-0"]
+DataStructures = "0.18"
+MacroTools = "0.5"
+PrettyTables = "2.2.0-2"
+ReplMaker = "0.2"
