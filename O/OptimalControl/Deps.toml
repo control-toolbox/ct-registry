@@ -1,6 +1,3 @@
-[0]
-Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
-
 ["0-0.2.0"]
 ADNLPModels = "54578032-b7ea-4c30-94aa-7cbd1cce6c9a"
 CTOptimization = "22f08de8-270f-4470-8fba-397dbc90d8e0"
@@ -16,9 +13,14 @@ Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 ["0-0.3"]
 HamiltonianFlows = "5fb78580-10a0-4606-82bc-07a60f425ab3"
 
+["0-0.5"]
+Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
+
 ["0.2.1-0"]
 CTBase = "54762871-cc72-4466-b8e8-f6c8b58076cd"
 CTDirect = "790bbbee-bee9-49ee-8912-a9de031322d5"
+
+["0.2.1-0.5"]
 CTDirectShooting = "e0e6c04b-5022-4cd2-bea2-4a09fff39444"
 
 ["0.4-0"]
