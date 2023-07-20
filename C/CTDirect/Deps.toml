@@ -14,3 +14,6 @@ DocStringExtensions = "ffbed154-4ef7-542d-bbb7-c09d3a79fcae"
 
 ["0.2-0.2.1"]
 Parameters = "d96e819e-fc66-5662-9728-84c9c7592b0a"
+
+["0.4-0"]
+Symbolics = "0c5d862f-8b57-4792-8d23-62f2024744c7"
