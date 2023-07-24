@@ -21,7 +21,12 @@ CTBase = "0.4"
 CTBase = "0.5"
 CTDirect = "0.2"
 
+["0.6"]
+CTDirect = "0.3"
+
 ["0.6-0"]
 CTBase = "0.7"
-CTDirect = "0.3"
 CTFlows = "0.3"
+
+["0.7-0"]
+CTDirect = "0.4"
