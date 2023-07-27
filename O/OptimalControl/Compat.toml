@@ -30,3 +30,6 @@ CTFlows = "0.3"
 
 ["0.7-0"]
 CTDirect = "0.4"
+
+["0.7.2-0"]
+CTProblems = "0.5"
