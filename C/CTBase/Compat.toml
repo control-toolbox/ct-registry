@@ -1,9 +1,11 @@
 ["0.2.1-0"]
 ForwardDiff = "0.10"
-Interpolations = "0.14"
 Parameters = "0.12"
 Printf = "1.8.0-1"
 julia = "1.8.0-1"
+
+["0.2.1-0.7.9"]
+Interpolations = "0.14"
 
 ["0.4"]
 AbstractTrees = "0.4"
@@ -22,3 +24,6 @@ DataStructures = "0.18"
 MacroTools = "0.5"
 PrettyTables = "2.2.0-2"
 ReplMaker = "0.2"
+
+["0.7.10-0"]
+Interpolations = "0.15"
