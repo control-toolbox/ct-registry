@@ -32,3 +32,6 @@ Unicode = "4ec0a83e-493e-50e2-b9ac-8f72acf5a8f5"
 
 ["0.7-0.7.10"]
 ReplMaker = "b873ce64-0db9-51f5-a568-4457d8e49576"
+
+["0.7.12-0"]
+ReplMaker = "b873ce64-0db9-51f5-a568-4457d8e49576"
