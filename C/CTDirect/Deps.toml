@@ -17,3 +17,7 @@ Parameters = "d96e819e-fc66-5662-9728-84c9c7592b0a"
 
 ["0.4-0"]
 Symbolics = "0c5d862f-8b57-4792-8d23-62f2024744c7"
+
+["0.4.6-0"]
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+NLPModels = "a4795742-8479-5a88-8948-cc11e1c8c1a6"
