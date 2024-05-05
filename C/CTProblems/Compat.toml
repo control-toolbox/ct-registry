@@ -26,5 +26,10 @@ LinearAlgebra = "1.8.0-1"
 OrdinaryDiffEq = "6.49.0-6"
 
 ["0.5.2-0"]
-CTBase = "0.7"
 CTFlows = "0.3"
+
+["0.5.2-0.5.7"]
+CTBase = "0.7"
+
+["0.5.8-0"]
+CTBase = "0.8"
