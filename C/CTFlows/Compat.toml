@@ -15,5 +15,10 @@ CTBase = "0.5"
 CTBase = "0.6"
 
 ["0.3-0"]
-CTBase = "0.7"
 DocStringExtensions = "0.9"
+
+["0.3-0.3.5"]
+CTBase = "0.7"
+
+["0.3.6-0"]
+CTBase = "0.8"
