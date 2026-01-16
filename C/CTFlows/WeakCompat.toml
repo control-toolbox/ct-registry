@@ -1,8 +1,0 @@
-["0.4-0.4.3"]
-Plots = "1.38.0-1"
-
-["0.4.0"]
-DifferentialEquations = "7.13.0-7"
-
-["0.4.1-0.4.3"]
-OrdinaryDiffEq = "6.84.0-6"
