@@ -1,0 +1,6 @@
+[0]
+ADNLPModels = "0.8"
+ExaModels = "0.9"
+MadNLP = "0.8"
+NLPModelsIpopt = "0.11"
+NLPModelsKnitro = "0.9"
