@@ -7,3 +7,7 @@ MKL = "33e6dc65-8f57-5167-99aa-e5a354878fb2"
 NLPModels = "a4795742-8479-5a88-8948-cc11e1c8c1a6"
 SolverCore = "ff4d7338-4cf1-434d-91df-b86cb86fb843"
 SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
+
+["0.18-0"]
+ADNLPModels = "54578032-b7ea-4c30-94aa-7cbd1cce6c9a"
+ExaModels = "1037b233-b668-4ce9-9b63-f9f681f55dd2"
