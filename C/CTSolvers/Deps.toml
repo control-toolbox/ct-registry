@@ -1,0 +1,7 @@
+[0]
+CTBase = "54762871-cc72-4466-b8e8-f6c8b58076cd"
+CTModels = "34c4fa32-2049-4079-8329-de33c2a22e2d"
+CommonSolve = "38540f10-b2f7-11e9-35d8-d573e4eb0ff2"
+DocStringExtensions = "ffbed154-4ef7-542d-bbb7-c09d3a79fcae"
+NLPModels = "a4795742-8479-5a88-8948-cc11e1c8c1a6"
+SolverCore = "ff4d7338-4cf1-434d-91df-b86cb86fb843"
