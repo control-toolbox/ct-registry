@@ -1,5 +1,4 @@
 [0]
-CTBase = "0.16-0.17"
 DocStringExtensions = "0.9"
 Interpolations = "0.16"
 LinearAlgebra = "1"
@@ -10,9 +9,15 @@ Parameters = "0.12"
 RecipesBase = "1"
 julia = "1.10.0-1"
 
-["0.7-0"]
+["0-0.7"]
+CTBase = "0.16-0.17"
+
+["0.7"]
 ADNLPModels = "0.8"
 ExaModels = "0.9"
 KernelAbstractions = "0.9"
 NLPModels = "0.21"
 SolverCore = "0.3"
+
+["0.8-0"]
+CTBase = "0.18"
