@@ -1,84 +1,56 @@
 #
 # Reproduction script for overlapping compat ranges bug in LocalRegistry.jl
+# with pre-release (beta) versions.
 #
 # Summary:
-#   When registering successive versions of a package where different dependencies
-#   change at different times, LocalRegistry can produce overlapping compat ranges
-#   in Compat.toml, causing Pkg to error:
-#     "Overlapping ranges for <Dep> for version <v> in registry."
+#   When registering successive pre-release versions that only differ by the
+#   pre-release tag (e.g. v0.1.0-beta.1 → v0.1.0-beta.2), LocalRegistry does
+#   not correctly update Compat.toml when compat bounds change. The dependency
+#   remains in the catch-all [0] section AND gets added to a version-specific
+#   section, producing overlapping ranges.
 #
-# Scenario (mirrors a real-world case with CTFlows in a private registry):
-#   - MainPkg v0.1.0: depends on DepA = "0.1" and DepB = "0.1"
-#   - MainPkg v0.2.0: changes only DepB = "0.1, 0.2" (DepA unchanged)
-#     → LocalRegistry moves DepB out of [0] into version-specific sections,
-#       but DepA stays in [0] since it didn't change.
-#   - MainPkg v0.3.0: now changes DepA = "0.1, 0.2" (and DepB = "0.1, 0.2")
-#     → LocalRegistry adds DepA to ["0.3-0"] but does NOT remove it from [0].
-#     → DepA now appears in BOTH [0] and ["0.3-0"], causing overlapping ranges.
+#   However, when bumping the patch/minor version (e.g. v0.1.0-beta.1 →
+#   v0.1.1-beta.1), the update works correctly.
 #
-# Expected Compat.toml (non-overlapping):
-#   [0]
-#   julia = "1.10.0-1"
-#   ["0-0.1"]
-#   DepA = "0.1"
-#   DepB = "0.1"
-#   ["0.2"]
-#   DepA = "0.1"
-#   DepB = "0.1-0.2"
-#   ["0.3-0"]
-#   DepA = "0.1-0.2"
-#   DepB = "0.1-0.2"
+# This causes Pkg to error:
+#   "Overlapping ranges for <Dep> for version <v> in registry."
 #
-# Actual (buggy) Compat.toml:
-#   [0]
-#   DepA = "0.1"          ← still here from v0.1.0!
-#   julia = "1.10.0-1"
-#   ["0-0.1"]
-#   DepB = "0.1"
-#   ["0.2"]
-#   DepB = "0.1-0.2"
-#   ["0.3-0"]
-#   DepA = "0.1-0.2"      ← overlaps with [0] for version 0.3.0!
-#   DepB = "0.1-0.2"
+# Real-world case: CTFlows in a private registry (control-toolbox/ct-registry)
+#   - CTFlows v0.8.10-beta: CTBase = "0.16-0.17", CTModels = "0.6"
+#   - CTFlows v0.8.11-beta: CTModels changes → correctly split out of [0],
+#     but CTBase stays in [0]
+#   - CTFlows v0.8.11-beta.1: CTBase changes → added to ["0.8.11-0"] but NOT
+#     removed from [0] → overlapping ranges
 #
 
 using Pkg, LocalRegistry, UUIDs
 
 # ---------------------------------------------------------------------------
-# Setup: create a temporary workspace
+# Setup
 # ---------------------------------------------------------------------------
 ROOT = mktempdir()
 println("Working directory: $ROOT")
 
-depa_path    = joinpath(ROOT, "DepA")
-depb_path    = joinpath(ROOT, "DepB")
-mainpkg_path = joinpath(ROOT, "MainPkg")
-
-# ---------------------------------------------------------------------------
-# Step 1: Create the local registry (bare git repo)
-# ---------------------------------------------------------------------------
 registry_bare = joinpath(ROOT, "TestRegistry_bare")
 run(`git init --bare $registry_bare`)
 create_registry("TestRegistry", registry_bare; description="Test registry", push=true)
 
-# create_registry already clones the registry into ~/.julia/registries/TestRegistry
 registry_path = joinpath(first(DEPOT_PATH), "registries", "TestRegistry")
 
-# Ensure cleanup even on error
 atexit() do
     rm(registry_path; force=true, recursive=true)
     rm(ROOT; force=true, recursive=true)
 end
 
 # ---------------------------------------------------------------------------
-# Helper: create and register a simple package with given versions
+# Helper: create and register a simple dependency package
 # ---------------------------------------------------------------------------
-function create_pkg(path, name, uuid; versions)
+function create_dep(path, name, uuid; versions)
     mkdir(path)
     mkdir(joinpath(path, "src"))
     write(joinpath(path, "src", "$name.jl"), "module $name\nend\n")
     run(Cmd(`git init`, dir=path))
-    for (i, v) in enumerate(versions)
+    for v in versions
         write(joinpath(path, "Project.toml"), """
         name = "$name"
         uuid = "$uuid"
@@ -94,143 +66,140 @@ function create_pkg(path, name, uuid; versions)
 end
 
 # ---------------------------------------------------------------------------
-# Step 2: Create dependency packages DepA (v0.1, v0.2) and DepB (v0.1, v0.2)
+# Helper: check if a key appears under [0] in a Compat.toml string
+# ---------------------------------------------------------------------------
+function has_key_in_section_0(content, key)
+    in_section_0 = false
+    for line in split(content, "\n")
+        if line == "[0]"
+            in_section_0 = true
+        elseif startswith(line, "[")
+            in_section_0 = false
+        elseif in_section_0 && startswith(line, key)
+            return true
+        end
+    end
+    return false
+end
+
+# ---------------------------------------------------------------------------
+# Helper: register a version of MainPkg with given compat
+# ---------------------------------------------------------------------------
+function register_main(mainpkg_path, main_uuid, version, depa_uuid, depb_uuid,
+                       depa_compat, depb_compat)
+    write(joinpath(mainpkg_path, "Project.toml"), """
+    name = "MainPkg"
+    uuid = "$main_uuid"
+    version = "$version"
+
+    [deps]
+    DepA = "$depa_uuid"
+    DepB = "$depb_uuid"
+
+    [compat]
+    DepA = "$depa_compat"
+    DepB = "$depb_compat"
+    julia = "1.10"
+    """)
+    run(Cmd(`git add .`, dir=mainpkg_path))
+    run(Cmd(`git commit --allow-empty -m "MainPkg v$version"`, dir=mainpkg_path))
+    run(Cmd(`git tag v$version`, dir=mainpkg_path))
+    register(mainpkg_path; registry="TestRegistry",
+             repo="https://example.com/MainPkg.jl.git", push=true)
+    println("  ✓ Registered MainPkg v$version")
+end
+
+# ---------------------------------------------------------------------------
+# Create dependency packages
 # ---------------------------------------------------------------------------
 depa_uuid = string(uuid4())
 depb_uuid = string(uuid4())
 
 println("\n--- Registering DepA ---")
-create_pkg(depa_path, "DepA", depa_uuid; versions=["0.1.0", "0.2.0"])
+create_dep(joinpath(ROOT, "DepA"), "DepA", depa_uuid; versions=["0.1.0", "0.2.0"])
 
 println("\n--- Registering DepB ---")
-create_pkg(depb_path, "DepB", depb_uuid; versions=["0.1.0", "0.2.0"])
+create_dep(joinpath(ROOT, "DepB"), "DepB", depb_uuid; versions=["0.1.0", "0.2.0"])
 
-# ---------------------------------------------------------------------------
-# Step 3: Register MainPkg v0.1.0 — depends on DepA = "0.1" AND DepB = "0.1"
-# ---------------------------------------------------------------------------
-main_uuid = string(uuid4())
+# =========================================================================
+# CASE 1: beta.1 → beta.2 (same patch version, only pre-release tag changes)
+#         Expected: BUG — compat not updated correctly
+# =========================================================================
+println("\n" * "#"^60)
+println("# CASE 1: v0.1.0-beta.1 → v0.1.0-beta.2 (same patch)")
+println("#"^60)
 
-println("\n--- Registering MainPkg ---")
-mkdir(mainpkg_path)
-mkdir(joinpath(mainpkg_path, "src"))
-write(joinpath(mainpkg_path, "src", "MainPkg.jl"), "module MainPkg\nusing DepA, DepB\nend\n")
-run(Cmd(`git init`, dir=mainpkg_path))
+mainpkg1_path = joinpath(ROOT, "MainPkg1")
+mkdir(mainpkg1_path)
+mkdir(joinpath(mainpkg1_path, "src"))
+write(joinpath(mainpkg1_path, "src", "MainPkg.jl"), "module MainPkg\nusing DepA, DepB\nend\n")
+run(Cmd(`git init`, dir=mainpkg1_path))
+main1_uuid = string(uuid4())
 
-write(joinpath(mainpkg_path, "Project.toml"), """
-name = "MainPkg"
-uuid = "$main_uuid"
-version = "0.1.0"
+# v0.1.0-beta.1: DepA = "0.1", DepB = "0.1"
+println("\n  Registering v0.1.0-beta.1 (DepA = \"0.1\", DepB = \"0.1\")")
+register_main(mainpkg1_path, main1_uuid, "0.1.0-beta.1",
+              depa_uuid, depb_uuid, "0.1", "0.1")
 
-[deps]
-DepA = "$depa_uuid"
-DepB = "$depb_uuid"
+compat_file1 = joinpath(registry_path, "M", "MainPkg", "Compat.toml")
+println("\n  Compat.toml after v0.1.0-beta.1:")
+println(read(compat_file1, String))
 
-[compat]
-DepA = "0.1"
-DepB = "0.1"
-julia = "1.10"
-""")
-run(Cmd(`git add .`, dir=mainpkg_path))
-run(Cmd(`git commit -m "MainPkg v0.1.0"`, dir=mainpkg_path))
-run(Cmd(`git tag v0.1.0`, dir=mainpkg_path))
-register(mainpkg_path; registry="TestRegistry",
-         repo="https://example.com/MainPkg.jl.git", push=true)
-println("  ✓ Registered MainPkg v0.1.0")
+# v0.1.0-beta.2: broaden DepA = "0.1, 0.2" (DepB unchanged)
+println("  Registering v0.1.0-beta.2 (DepA = \"0.1, 0.2\", DepB = \"0.1\")")
+register_main(mainpkg1_path, main1_uuid, "0.1.0-beta.2",
+              depa_uuid, depb_uuid, "0.1, 0.2", "0.1")
 
-compat_file = joinpath(registry_path, "M", "MainPkg", "Compat.toml")
-println("\n--- Compat.toml after v0.1.0 ---")
-println(read(compat_file, String))
+println("\n  Compat.toml after v0.1.0-beta.2:")
+compat1 = read(compat_file1, String)
+println(compat1)
 
-# ---------------------------------------------------------------------------
-# Step 4: Register MainPkg v0.2.0 — change ONLY DepB = "0.1, 0.2" (DepA unchanged)
-#         This causes LocalRegistry to split DepB out of [0], but DepA stays in [0].
-# ---------------------------------------------------------------------------
-write(joinpath(mainpkg_path, "Project.toml"), """
-name = "MainPkg"
-uuid = "$main_uuid"
-version = "0.2.0"
-
-[deps]
-DepA = "$depa_uuid"
-DepB = "$depb_uuid"
-
-[compat]
-DepA = "0.1"
-DepB = "0.1, 0.2"
-julia = "1.10"
-""")
-run(Cmd(`git add .`, dir=mainpkg_path))
-run(Cmd(`git commit -m "MainPkg v0.2.0 — broaden DepB only"`, dir=mainpkg_path))
-run(Cmd(`git tag v0.2.0`, dir=mainpkg_path))
-register(mainpkg_path; registry="TestRegistry",
-         repo="https://example.com/MainPkg.jl.git", push=true)
-println("  ✓ Registered MainPkg v0.2.0")
-
-println("\n--- Compat.toml after v0.2.0 ---")
-println(read(compat_file, String))
-
-# ---------------------------------------------------------------------------
-# Step 5: Register MainPkg v0.3.0 — now broaden DepA = "0.1, 0.2" too
-#         DepA should be moved out of [0] into version-specific sections.
-#         BUG: LocalRegistry adds DepA to ["0.3-0"] but leaves it in [0].
-# ---------------------------------------------------------------------------
-write(joinpath(mainpkg_path, "Project.toml"), """
-name = "MainPkg"
-uuid = "$main_uuid"
-version = "0.3.0"
-
-[deps]
-DepA = "$depa_uuid"
-DepB = "$depb_uuid"
-
-[compat]
-DepA = "0.1, 0.2"
-DepB = "0.1, 0.2"
-julia = "1.10"
-""")
-run(Cmd(`git add .`, dir=mainpkg_path))
-run(Cmd(`git commit -m "MainPkg v0.3.0 — broaden DepA compat"`, dir=mainpkg_path))
-run(Cmd(`git tag v0.3.0`, dir=mainpkg_path))
-register(mainpkg_path; registry="TestRegistry",
-         repo="https://example.com/MainPkg.jl.git", push=true)
-println("  ✓ Registered MainPkg v0.3.0")
-
-# ---------------------------------------------------------------------------
-# Step 6: Inspect Compat.toml for overlapping ranges
-# ---------------------------------------------------------------------------
-println("\n" * "="^60)
-println("Contents of MainPkg/Compat.toml after v0.3.0:")
-println("="^60)
-compat_content = read(compat_file, String)
-println(compat_content)
-println("="^60)
-
-# Parse: check if DepA appears under [0] section
-let
-    lines = split(compat_content, "\n")
-    in_section_0 = false
-    global bug_found = false
-    for line in lines
-        if line == "[0]"
-            in_section_0 = true
-        elseif startswith(line, "[")
-            in_section_0 = false
-        elseif in_section_0 && startswith(line, "DepA")
-            global bug_found = true
-        end
-    end
-end
-
-if bug_found
-    println("\n✗ BUG CONFIRMED: DepA appears in [0] AND in a version-specific")
-    println("  section, causing overlapping ranges for version 0.3.0.")
-    println("  Pkg will error with: \"Overlapping ranges for DepA for version 0.3.0 in registry.\"")
+if has_key_in_section_0(compat1, "DepA")
+    println("  ✗ BUG: DepA still in [0] → overlapping ranges for v0.1.0-beta.2")
 else
-    println("\n✓ No overlap detected — DepA was correctly removed from [0].")
-    println("  The bug may have been fixed in this version of LocalRegistry.")
+    println("  ✓ OK: DepA correctly removed from [0]")
 end
 
-println("\nLocalRegistry version: ", Pkg.dependencies()[Base.UUID("89398ba2-070a-4b16-a995-9893c55d93cf")].version)
+# =========================================================================
+# CASE 2: beta.1 → next patch beta.1 (patch version bumped)
+#         Expected: OK — compat updated correctly
+# =========================================================================
+println("\n" * "#"^60)
+println("# CASE 2: v0.2.0-beta.1 → v0.2.1-beta.1 (patch bump)")
+println("#"^60)
+
+# We reuse the same MainPkg registry entry, continuing from Case 1.
+
+# v0.2.0-beta.1: DepA = "0.1", DepB = "0.1"
+println("\n  Registering v0.2.0-beta.1 (DepA = \"0.1\", DepB = \"0.1\")")
+register_main(mainpkg1_path, main1_uuid, "0.2.0-beta.1",
+              depa_uuid, depb_uuid, "0.1", "0.1")
+
+println("\n  Compat.toml after v0.2.0-beta.1:")
+println(read(compat_file1, String))
+
+# v0.2.1-beta.1: broaden DepA = "0.1, 0.2" (DepB unchanged)
+println("  Registering v0.2.1-beta.1 (DepA = \"0.1, 0.2\", DepB = \"0.1\")")
+register_main(mainpkg1_path, main1_uuid, "0.2.1-beta.1",
+              depa_uuid, depb_uuid, "0.1, 0.2", "0.1")
+
+println("\n  Compat.toml after v0.2.1-beta.1:")
+compat2 = read(compat_file1, String)
+println(compat2)
+
+if has_key_in_section_0(compat2, "DepA")
+    println("  ✗ BUG: DepA still in [0] → overlapping ranges for v0.2.1-beta.1")
+else
+    println("  ✓ OK: DepA correctly removed from [0]")
+end
+
+# =========================================================================
+# Summary
+# =========================================================================
+println("\n" * "="^60)
+println("LocalRegistry version: ",
+        Pkg.dependencies()[Base.UUID("89398ba2-070a-4b16-a995-9893c55d93cf")].version)
+println("="^60)
 
 # ---------------------------------------------------------------------------
 # Cleanup
