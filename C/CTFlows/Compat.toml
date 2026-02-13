@@ -14,6 +14,11 @@ CTModels = "0.6"
 CTBase = "0.16-0.18"
 CTModels = "0.6-0.8"
 
+["0.8.13"]
+CTModels = "0.8"
+
 ["0.8.13-0"]
 CTBase = "0.18"
-CTModels = "0.8"
+
+["0.8.14-0"]
+CTModels = "0.9"
