@@ -1,17 +1,29 @@
 [1]
 ADNLPModels = "0.8"
-CTBase = "0.16-0.17"
-CTDirect = "0.17"
 CTFlows = "0.8"
-CTModels = "0.6"
 CommonSolve = "0.2"
 DocStringExtensions = "0.9"
 ExaModels = "0.9"
 RecipesBase = "1"
 julia = "1.10.0-1"
 
+["1-1.1"]
+CTBase = "0.16-0.17"
+CTDirect = "0.17"
+CTModels = "0.6"
+
 ["1-1.1.7"]
 CTParser = "0.7"
 
-["1.1.8-1"]
+["1.1.8-1.1"]
 CTParser = "0.7-0.8"
+
+["1.2-1"]
+CTBase = "0.18"
+CTDirect = "1"
+CTModels = "0.9"
+CTParser = "0.8"
+CTSolvers = "0.3"
+NLPModels = "0.21.7-0.21"
+Reexport = "1"
+SolverCore = "0.3.9-0.3"
