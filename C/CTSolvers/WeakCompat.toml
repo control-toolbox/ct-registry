@@ -1,6 +1,12 @@
 [0]
+NLPModelsIpopt = "0.11"
+NLPModelsKnitro = "0.10"
+
+["0-0.3"]
 MadNCL = "0.1"
 MadNLP = "0.8"
 MadNLPMumps = "0.5"
-NLPModelsIpopt = "0.11"
-NLPModelsKnitro = "0.10"
+
+["0.4-0"]
+MadNCL = "0.2"
+MadNLP = "0.9"
