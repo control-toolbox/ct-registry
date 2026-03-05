@@ -6,3 +6,7 @@ NLPModelsKnitro = "bec4dd0d-7755-52d5-9a02-22f0ffc7efcb"
 
 ["0-0.3"]
 MadNLPMumps = "3b83494e-c0a4-4895-918b-9157a7a085a1"
+
+["0.4.1-0"]
+CUDA = "052768ef-5323-5732-b1bb-66c8b64840ba"
+MadNLPGPU = "d72a61cc-809d-412f-99be-fd81f4b8a598"
