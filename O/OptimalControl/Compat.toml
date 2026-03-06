@@ -23,7 +23,13 @@ CTBase = "0.18"
 CTDirect = "1"
 CTModels = "0.9"
 CTParser = "0.8"
-CTSolvers = "0.3"
-NLPModels = "0.21.7-0.21"
 Reexport = "1"
 SolverCore = "0.3.9-0.3"
+
+["1.2-1.2.1"]
+CTSolvers = "0.3"
+NLPModels = "0.21.7-0.21"
+
+["1.2.2-1"]
+CTSolvers = "0.4"
+NLPModels = "0.21"
