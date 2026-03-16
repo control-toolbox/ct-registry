@@ -1,6 +1,5 @@
 [0]
 DocStringExtensions = "0.9"
-Interpolations = "0.16"
 LinearAlgebra = "1"
 MLStyle = "0.4"
 MacroTools = "0.5"
@@ -11,6 +10,9 @@ julia = "1.10.0-1"
 
 ["0-0.7"]
 CTBase = "0.16-0.17"
+
+["0-0.9.2"]
+Interpolations = "0.16"
 
 ["0.7"]
 ADNLPModels = "0.8"
