@@ -47,3 +47,6 @@ CTModels = "0.9"
 ["1.0.3-1"]
 CTSolvers = "0.4"
 SolverCore = "0.3"
+
+["1.0.7-1"]
+SparseConnectivityTracer = "1.2.1-1"

@@ -21,3 +21,6 @@ CTSolvers = "d3e8d392-8e4b-4d9b-8e92-d7d4e3650ef6"
 
 ["1-1.0.2"]
 CTParser = "32681960-a1b1-40db-9bff-a1ca817385d1"
+
+["1.0.7-1"]
+SparseConnectivityTracer = "9f842d2f-2579-4b1d-911e-f412cf18a3f5"
