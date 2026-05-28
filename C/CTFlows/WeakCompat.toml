@@ -8,3 +8,6 @@ OrdinaryDiffEqTsit5 = "2"
 Plots = "1"
 SciMLBase = "3"
 StaticArrays = "1"
+
+["0.9.1-0"]
+DifferentiationInterface = "0.7"

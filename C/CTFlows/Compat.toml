@@ -31,3 +31,6 @@ CTSolvers = "0.4"
 CommonSolve = "0.2"
 RecipesBase = "1"
 Reexport = "1"
+
+["0.9.1-0"]
+ADTypes = "1"
