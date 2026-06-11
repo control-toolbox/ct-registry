@@ -17,3 +17,6 @@ Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
 
 ["0.9.1-0"]
 ADTypes = "47edcb42-4c32-4615-8424-f2b9edc5f35b"
+
+["0.9.3-0"]
+MacroTools = "1914dd2f-81c6-5fcd-8719-6d5c9610ff09"
