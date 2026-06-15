@@ -3,16 +3,23 @@ DocStringExtensions = "0.9"
 LinearAlgebra = "1"
 MLStyle = "0.4"
 MacroTools = "0.5"
-OrderedCollections = "1"
-Parameters = "0.12"
 RecipesBase = "1"
 julia = "1.10.0-1"
 
 ["0-0.7"]
 CTBase = "0.16-0.17"
 
+["0-0.9"]
+OrderedCollections = "1"
+Parameters = "0.12"
+
 ["0-0.9.2"]
 Interpolations = "0.16"
+
+["0.10-0"]
+CTBase = ["0.18", "0.20"]
+OrderedCollections = "1-2"
+Parameters = "0.12-0.13"
 
 ["0.7"]
 ADNLPModels = "0.8"
@@ -21,5 +28,5 @@ KernelAbstractions = "0.9"
 NLPModels = "0.21"
 SolverCore = "0.3"
 
-["0.8-0"]
+["0.8-0.9"]
 CTBase = "0.18"
