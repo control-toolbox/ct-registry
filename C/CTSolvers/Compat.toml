@@ -2,7 +2,6 @@
 ADNLPModels = "0.8"
 CommonSolve = "0.2"
 DocStringExtensions = "0.9"
-ExaModels = "0.9"
 KernelAbstractions = "0.9"
 NLPModels = "0.21"
 SolverCore = "0.3"
@@ -12,11 +11,19 @@ julia = "1.10.0-1"
 CTBase = "0.17"
 CTModels = "0.7"
 
-["0.2.1-0"]
-CTBase = "0.18"
+["0-0.4.11"]
+ExaModels = "0.9"
 
 ["0.2.1-0.2"]
 CTModels = "0.8"
 
-["0.3-0"]
+["0.2.1-0.4.11"]
+CTBase = "0.18"
+
+["0.3-0.4.11"]
 CTModels = "0.9"
+
+["0.4.18-0"]
+CTBase = ["0.18", "0.20"]
+CTModels = "0.10"
+ExaModels = "0.11"
