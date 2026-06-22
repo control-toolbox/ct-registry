@@ -17,9 +17,15 @@ Parameters = "0.12"
 Interpolations = "0.16"
 
 ["0.10-0"]
-CTBase = ["0.18", "0.20"]
 OrderedCollections = "1-2"
+
+["0.10-0.11"]
+CTBase = ["0.18", "0.20"]
 Parameters = "0.12-0.13"
+
+["0.12-0"]
+CTBase = "0.21"
+Parameters = "0.13"
 
 ["0.7"]
 ADNLPModels = "0.8"
