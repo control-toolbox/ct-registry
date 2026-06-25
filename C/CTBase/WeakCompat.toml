@@ -4,3 +4,6 @@ Documenter = "1"
 Markdown = "1"
 MarkdownAST = "0.1"
 Test = "1"
+
+["0.24-0"]
+DifferentiationInterface = "0.7"
