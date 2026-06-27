@@ -1,23 +1,30 @@
 [0]
 DocStringExtensions = "0.9"
 MLStyle = "0.4"
-Parameters = "0.12"
 Unicode = "1"
 julia = "1.10.0-1"
 
 ["0-0.7"]
 OrderedCollections = "1.8.0-1"
 
+["0-0.8.12"]
+Parameters = "0.12"
+
 ["0-0.8.2"]
 CTBase = "0.16-0.17"
 
-["0.8-0"]
+["0.8-0.8.12"]
 OrderedCollections = "1"
 
 ["0.8-0.8.4"]
 ExaModels = "0.9.3-0.9"
 
-["0.8.3-0"]
+["0.8.16-0"]
+CTBase = "0.25"
+OrderedCollections = "1-2"
+Parameters = "0.12-0.13"
+
+["0.8.3-0.8.12"]
 CTBase = "0.18"
 
 ["0.8.3-0.8.4"]
