@@ -11,10 +11,12 @@ MadNLPMumps = "3b83494e-c0a4-4895-918b-9157a7a085a1"
 CUDA = "052768ef-5323-5732-b1bb-66c8b64840ba"
 MadNLPGPU = "d72a61cc-809d-412f-99be-fd81f4b8a598"
 
+["0.4.22"]
+KernelAbstractions = "63c18a36-062a-441e-b654-da1e3ab1ce7c"
+
 ["0.4.22-0"]
 ADNLPModels = "54578032-b7ea-4c30-94aa-7cbd1cce6c9a"
 ExaModels = "1037b233-b668-4ce9-9b63-f9f681f55dd2"
-KernelAbstractions = "63c18a36-062a-441e-b654-da1e3ab1ce7c"
 NLPModels = "a4795742-8479-5a88-8948-cc11e1c8c1a6"
 
 ["0.4.3-0"]

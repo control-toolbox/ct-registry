@@ -23,10 +23,12 @@ MadNLP = "0.9-0.10"
 MadNLPGPU = ["0.8", "0.10"]
 UnoSolver = "0.3"
 
+["0.4.22"]
+KernelAbstractions = "0.9"
+
 ["0.4.22-0"]
 ADNLPModels = "0.8"
 ExaModels = "0.11"
-KernelAbstractions = "0.9"
 NLPModels = "0.21"
 
 ["0.4.3-0"]
