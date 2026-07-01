@@ -19,6 +19,12 @@ ADNLPModels = "54578032-b7ea-4c30-94aa-7cbd1cce6c9a"
 ExaModels = "1037b233-b668-4ce9-9b63-f9f681f55dd2"
 NLPModels = "a4795742-8479-5a88-8948-cc11e1c8c1a6"
 
+["0.4.25-0"]
+DiffEqBase = "2b5f629d-d688-5b77-993f-72d75c75574e"
+ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
+OrdinaryDiffEqTsit5 = "b1df2697-797e-41e3-8120-5422d3b24e4a"
+SciMLBase = "0bca4576-84f4-4d90-8ffe-ffa030f20462"
+
 ["0.4.3-0"]
 Enzyme = "7da242da-08ed-463a-9acd-ee780be4f1d9"
 Zygote = "e88e6eb3-aa80-5325-afca-941959d7151f"
