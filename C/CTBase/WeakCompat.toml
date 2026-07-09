@@ -7,3 +7,6 @@ Test = "1"
 
 ["0.24-0"]
 DifferentiationInterface = "0.7"
+
+["0.27-0"]
+Plots = "1"
