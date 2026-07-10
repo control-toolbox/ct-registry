@@ -12,9 +12,15 @@ MacroTools = "0.5"
 CTBase = "0.16-0.17"
 CTModels = "0.6"
 
-["0.10-0"]
+["0.10"]
 CTBase = "0.26"
 CTModels = "0.14"
+
+["0.11-0"]
+CTBase = "0.27"
+CTModels = "0.15"
+CTSolvers = "0.4"
+CommonSolve = "0.2"
 
 ["0.8.11-0.8.12"]
 CTBase = "0.16-0.18"
