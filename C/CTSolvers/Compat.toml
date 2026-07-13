@@ -53,6 +53,10 @@ KernelAbstractions = "0.9"
 CTBase = "0.26"
 CTModels = "0.14"
 
-["0.4.26-0"]
+["0.4.26"]
 CTBase = "0.26-0.27"
 CTModels = "0.14-0.15"
+
+["0.4.27-0"]
+CTBase = "0.28"
+CTModels = "0.15"
