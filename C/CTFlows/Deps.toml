@@ -13,6 +13,9 @@ MacroTools = "1914dd2f-81c6-5fcd-8719-6d5c9610ff09"
 CTSolvers = "d3e8d392-8e4b-4d9b-8e92-d7d4e3650ef6"
 CommonSolve = "38540f10-b2f7-11e9-35d8-d573e4eb0ff2"
 
+["0.16-0"]
+GPUArraysCore = "46192b85-c4d5-4398-a991-12ede77f4527"
+
 ["0.9"]
 CTSolvers = "d3e8d392-8e4b-4d9b-8e92-d7d4e3650ef6"
 CommonSolve = "38540f10-b2f7-11e9-35d8-d573e4eb0ff2"

@@ -16,11 +16,17 @@ CTModels = "0.6"
 CTBase = "0.26"
 CTModels = "0.14"
 
-["0.11-0"]
+["0.11"]
 CTBase = "0.27"
+
+["0.11-0"]
 CTModels = "0.15"
 CTSolvers = "0.4"
 CommonSolve = "0.2"
+
+["0.16-0"]
+CTBase = "0.28"
+GPUArraysCore = "0.1-0.2"
 
 ["0.8.11-0.8.12"]
 CTBase = "0.16-0.18"
