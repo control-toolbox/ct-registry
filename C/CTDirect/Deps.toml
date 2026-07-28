@@ -24,3 +24,7 @@ CTParser = "32681960-a1b1-40db-9bff-a1ca817385d1"
 
 ["1.0.7-1"]
 SparseConnectivityTracer = "9f842d2f-2579-4b1d-911e-f412cf18a3f5"
+
+["1.1-1"]
+CTBase = "54762871-cc72-4466-b8e8-f6c8b58076cd"
+CTParser = "32681960-a1b1-40db-9bff-a1ca817385d1"
