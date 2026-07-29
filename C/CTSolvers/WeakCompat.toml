@@ -41,5 +41,8 @@ SciMLBase = "3"
 Enzyme = "0.13"
 Zygote = "0.7"
 
+["0.4.34-0"]
+CUDSS = "0.6-0.8"
+
 ["0.4.9-0.4.11"]
 UnoSolver = "0.2"

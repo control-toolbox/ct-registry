@@ -29,5 +29,8 @@ SciMLBase = "0bca4576-84f4-4d90-8ffe-ffa030f20462"
 Enzyme = "7da242da-08ed-463a-9acd-ee780be4f1d9"
 Zygote = "e88e6eb3-aa80-5325-afca-941959d7151f"
 
+["0.4.34-0"]
+CUDSS = "45b445bb-4962-46a0-9369-b4df9d0f772e"
+
 ["0.4.9-0"]
 UnoSolver = "1baa60ac-02f7-4b39-a7a8-2f4f58486b05"
