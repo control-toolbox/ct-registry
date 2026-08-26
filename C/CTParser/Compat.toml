@@ -23,10 +23,10 @@ ExaModels = "0.9.3-0.9"
 CTBase = "0.25"
 OrderedCollections = "1-2"
 
-["0.8.16-0"]
+["0.8.16-0.8"]
 Parameters = "0.12-0.13"
 
-["0.8.17-0"]
+["0.8.17-0.8"]
 CTBase = ["0.18", "0.27-0.28"]
 OrderedCollections = "1"
 
@@ -35,3 +35,8 @@ CTBase = "0.18"
 
 ["0.8.3-0.8.4"]
 LinearAlgebra = "1"
+
+["0.9-0"]
+CTBase = "0.29"
+OrderedCollections = "1-2"
+Parameters = "0.13"
