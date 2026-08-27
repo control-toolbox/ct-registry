@@ -10,3 +10,6 @@ DifferentiationInterface = "0.7"
 
 ["0.27-0"]
 Plots = "1"
+
+["0.30-0"]
+Makie = "0.24"
