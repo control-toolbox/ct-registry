@@ -37,6 +37,11 @@ CTBase = "0.18"
 LinearAlgebra = "1"
 
 ["0.9-0"]
-CTBase = "0.29"
 OrderedCollections = "1-2"
 Parameters = "0.13"
+
+["0.9-0.9.3"]
+CTBase = "0.29"
+
+["0.9.4-0"]
+CTBase = "0.29-0.30"
