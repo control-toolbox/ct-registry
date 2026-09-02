@@ -31,10 +31,12 @@ NLPModels = "0.21.7-0.21"
 
 ["1.2-2"]
 CTDirect = "1"
-CTParser = "0.8"
 Reexport = "1"
 
-["1.2.2-2"]
+["1.2-2.1"]
+CTParser = "0.8"
+
+["1.2.2-2.1"]
 CTSolvers = "0.4"
 NLPModels = "0.21"
 
@@ -52,12 +54,24 @@ Documenter = "1.17.0-1"
 ExaModels = "0.9"
 SolverCore = "0.3.9-0.3"
 
-["2.1-2"]
+["2.1"]
 CTBase = "0.28"
 CTFlows = "0.16"
 CTLie = "0.1"
 CTModels = "0.15"
-DifferentiationInterface = "0.7"
 ExaModels = "0.11"
 ForwardDiff = ["0.10", "1"]
 SolverCore = "0.3"
+
+["2.1-2"]
+DifferentiationInterface = "0.7"
+
+["2.2-2"]
+CTBase = "0.30"
+CTFlows = "0.18"
+CTLie = "0.2"
+CTModels = "0.19"
+CTParser = "0.9"
+CTSolvers = "0.5"
+ExaModels = "0.12"
+ForwardDiff = "1"
