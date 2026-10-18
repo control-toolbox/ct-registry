@@ -19,9 +19,14 @@ way for the organization to develop and test coordinated changes across reposito
 
 ## Versioning convention
 
-Package versions follow [Semantic Versioning](https://semver.org/lang/fr/). The
-organization uses the `-beta` pre-release suffix and does not use release-candidate
-(`-rc`) versions.
+Package versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html), as
+Pkg reads it: the breaking component is the leftmost non-zero one, so in `0.Y.Z` a
+breaking change bumps `Y`. The organization uses the `-beta` pre-release suffix and does
+not use release-candidate (`-rc`) versions. The rules are `REL1`–`REL6` of
+[ct-conventions](https://github.com/control-toolbox/ct-conventions/blob/main/rules/release.md);
+an agent releases a package with the
+[release recipe](https://github.com/control-toolbox/ct-agents/blob/main/recipes/release.md)
+of ct-agents.
 
 Every release, whether beta or stable, must use a new version number. A beta version is
 never changed into a stable release with the same version number. For example:
@@ -103,35 +108,43 @@ stable versions.
 ## Publishing a stable release
 
 Stable releases are registered in the Julia General registry through JuliaRegistrator.
-Open an issue in the package repository and add the following comment:
 
-```text
-@JuliaRegistrator register
-```
+**Before registering, the package must resolve from General alone** (`REL4`): no
+`[compat]` bound may be satisfied by betas only. The CI of the packages uses
+`ct-registry`, so it does not see it; the `Registrable` check of the release PR does (see
+[`registrable.yml`](https://github.com/control-toolbox/CTActions/blob/main/docs/workflows/registrable.md)
+in CTActions).
 
-For a release that contains more than a simple fix, add release notes to the same
-comment:
+**The mention of the bot starts a registration wherever it appears** in an issue: in a
+comment, in the description, in a code block (`REL6`). So write it **once**, in one
+comment, when everything else is done; never in the description of the issue, never in a
+pull request. If the registration fails, decide what to do before posting it again.
+
+The comment, with the release notes:
 
 ```text
 @JuliaRegistrator register
 
 Release notes:
 
-- Add ...
-- Change ...
-- Fix ...
+<the CHANGELOG entry of the version>
+
+<the "What's Changed" of the GitHub release>
 ```
 
 A common workflow for preparing the release notes is:
 
-1. Create the GitHub release from the web interface.
-2. Ask GitHub to generate the release notes from the merged pull requests and issues.
-3. Copy the generated notes into the JuliaRegistrator comment.
-4. Add `@JuliaRegistrator register` to the comment.
+1. Create the GitHub release (tag `vX.Y.Z` on the merge commit of the release PR).
+2. Ask GitHub to generate the release notes, from the **previous stable** release
+   (`REL5`): `gh release create vX.Y.Z --generate-notes --notes-start-tag vPREVIOUS`, or
+   choose the previous tag in the web interface.
+3. Open the release issue, with no mention of the bot in its description.
+4. Post the comment above, once.
 
-If two stable releases do not have consecutive version numbers, add the following to a
-comment on the Julia registry pull request to confirm that the version jump is
-intentional:
+If two stable releases do not have consecutive version numbers (`REL3`), which happens
+when betas took the numbers in between (`0.4.2`, `0.4.3-beta`, then `0.4.4`), add the
+following to a comment on the Julia registry pull request to confirm that the version
+jump is intentional:
 
 ```text
 [merge approved]
